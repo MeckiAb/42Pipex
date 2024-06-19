@@ -50,20 +50,19 @@ void	execute(void)
 {
 	char	*str; 
 
-	str = get_next_line(0);
+	str = get_next_line(STDIN_FILENO);
 	while (str)
 	{
-		printf("%s", str);
-		get_next_line(0);
+		ft_printf("%s", str);
 		free(str);
+		get_next_line(STDIN_FILENO);
 	}
-	free(str);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	int		i = 0;
-	int		n = 5;
+	int		n = 2;
 	pid_t	cpid;
 	int		fd[2];
 	int		wstatus;
@@ -77,11 +76,11 @@ int	main(int argc, char **argv, char **envp)
 		exit(EXIT_FAILURE);
 	if (cpid != 0)
 	{
-		dup2(fd[1], 1);
+		dup2(fd[1], STDOUT_FILENO);
 		close(fd[0]);
 		close(fd[1]);
-		execute();
 		waitpid(cpid, &wstatus, 0);
+		execute();
 	}
 	else
 	{
@@ -93,8 +92,8 @@ int	main(int argc, char **argv, char **envp)
 				dup2(fd[0], 0);
 				close(fd[0]);
 				close(fd[1]);
-				execute();
 				waitpid(cpid, &wstatus, 0);
+				execute();
 			}
 			else
 			{			
@@ -102,11 +101,10 @@ int	main(int argc, char **argv, char **envp)
 					exit(EXIT_FAILURE);
 				if ((cpid = fork()) == -1)
 					exit(EXIT_FAILURE);
+				i++;
 			}
-			i++;
 		}
-		dup2(fd[1], 1);
-		dup2(fd[0], 0);
+		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
 		close(fd[1]);
 		execute();
