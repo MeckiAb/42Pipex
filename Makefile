@@ -6,7 +6,7 @@
 #    By: labderra <labderra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/15 09:26:13 by labderra          #+#    #+#              #
-#    Updated: 2024/06/13 19:11:10 by labderra         ###   ########.fr        #
+#    Updated: 2024/06/20 10:20:50 by labderra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME = pipex
 # BONUS = pipex
 LIBFT = libft/libft.a
 FT_PRINTF = ft_printf/libftprintf.a
-SRC = pipex.c \
+SRC = main.c \
+init.c \
 
 SRC_BONUS = main_bonus.c \
 	
@@ -56,4 +57,4 @@ re : fclean all
 # $(BONUS) : $(OBJ_BONUS) $(LIBFT) $(FT_PRINTF)
 #	$(CC) $(OBJ_BONUS) $(LIBFT) $(FT_PRINTF) -o $@ 
 
-.PHONY : all clean fclean re bonus
+.PHONY : all clean fclean re #bonus
