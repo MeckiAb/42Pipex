@@ -6,7 +6,7 @@
 /*   By: labderra <labderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 10:17:22 by labderra          #+#    #+#             */
-/*   Updated: 2024/06/24 14:15:20 by labderra         ###   ########.fr       */
+/*   Updated: 2024/06/25 11:30:53 by labderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ void	setup_pipes(t_proc *proc_list, int len, char *infile, char *outfile)
 	int	i;
 
 	i = 0;
+	proc_list[0].std_in = open(infile, O_RDONLY);
+	if (proc_list[0].std_in == -1)
+		error("Error2.1");
 	while (i < len - 1)
 	{
 		if (pipe(pipe_fd) == -1)
@@ -26,12 +29,7 @@ void	setup_pipes(t_proc *proc_list, int len, char *infile, char *outfile)
 		proc_list[i + 1].std_in = pipe_fd[0];
 		i++;
 	}
-	proc_list[0].std_in = open(infile, O_RDONLY);
-ft_printf("0 in = %i - %s", proc_list[0].std_in, infile);
-	if (proc_list[0].std_in == -1)
-		error("Error2.1");
-	proc_list[i].std_out = open(infile, O_WRONLY);
-ft_printf("%i out = %i - %s\n", i, proc_list[0].std_in, outfile);
+	proc_list[i].std_out = open(outfile, O_RDWR | O_CREAT | O_SYNC , 0666);
 	if (proc_list[i].std_out == -1)
 		error("Error2.2");
 }
@@ -109,7 +107,7 @@ t_proc	*process_init(int len, char **argv, char **envp)
 	int		i;
 	char	**full_path;
 
-	proc_list = (t_proc *)malloc((len) * sizeof(t_proc));
+	proc_list = (t_proc *)ft_calloc(len, sizeof(t_proc));
 	if (!proc_list)
 		error("Error8");
 	i = 0;
