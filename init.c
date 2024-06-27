@@ -6,7 +6,7 @@
 /*   By: labderra <labderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 10:17:22 by labderra          #+#    #+#             */
-/*   Updated: 2024/06/25 11:30:53 by labderra         ###   ########.fr       */
+/*   Updated: 2024/06/27 19:34:06 by labderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	setup_pipes(t_proc *proc_list, int len, char *infile, char *outfile)
 		proc_list[i + 1].std_in = pipe_fd[0];
 		i++;
 	}
-	proc_list[i].std_out = open(outfile, O_RDWR | O_CREAT | O_SYNC , 0666);
+	proc_list[i].std_out = open(outfile, O_RDWR | O_CREAT | O_SYNC, 0666);
 	if (proc_list[i].std_out == -1)
 		error("Error2.2");
 }
