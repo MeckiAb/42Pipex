@@ -6,13 +6,13 @@
 /*   By: labderra <labderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 19:29:06 by labderra          #+#    #+#             */
-/*   Updated: 2024/06/27 19:35:52 by labderra         ###   ########.fr       */
+/*   Updated: 2024/07/01 10:07:53 by labderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void	close_pipes(t_proc *proc_list, int len)
+void	close_pipes(t_proc *proc_list, int len)
 {
 	int	i;
 
@@ -46,7 +46,6 @@ void	exec_cmds(t_proc *proc_list, int len)
 		else
 		{
 			proc_list[process].pid = cpid;
-			//close_pipes(proc_list, len);
 		}
 		process++;
 	}

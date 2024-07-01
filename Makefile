@@ -6,7 +6,7 @@
 #    By: labderra <labderra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/15 09:26:13 by labderra          #+#    #+#              #
-#    Updated: 2024/06/20 10:20:50 by labderra         ###   ########.fr        #
+#    Updated: 2024/07/01 10:06:50 by labderra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,8 @@ LIBFT = libft/libft.a
 FT_PRINTF = ft_printf/libftprintf.a
 SRC = main.c \
 init.c \
+execs.c \
+heredoc.c
 
 SRC_BONUS = main_bonus.c \
 	

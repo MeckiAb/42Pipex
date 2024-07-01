@@ -6,7 +6,7 @@
 /*   By: labderra <labderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:44:15 by labderra          #+#    #+#             */
-/*   Updated: 2024/06/27 19:33:13 by labderra         ###   ########.fr       */
+/*   Updated: 2024/07/01 10:08:39 by labderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,9 @@ t_proc	*process_init(int argc, char **argv, char **envp);
 void	setup_pipes(t_proc *proc_list, int len, char *infile, char *outfile);
 void	exec_cmds(t_proc *proc_list, int len);
 int		wait_signals(t_proc *proc_list, int len);
+void	close_pipes(t_proc *proc_list, int len);
+
+void	setup_heredoc(t_proc *proc_list, char *outfile);
+void	exec_heredoc_cmds(t_proc *proc_list, char lmt);
 
 #endif
