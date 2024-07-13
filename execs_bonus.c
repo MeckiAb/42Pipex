@@ -6,7 +6,7 @@
 /*   By: labderra <labderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 19:29:06 by labderra          #+#    #+#             */
-/*   Updated: 2024/07/13 12:50:41 by labderra         ###   ########.fr       */
+/*   Updated: 2024/07/01 10:07:53 by labderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	close_pipes(t_proc *proc_list, int len)
 	}
 }
 
-void	exec_cmds(t_proc *proc_list, int len, char **envp)
+void	exec_cmds(t_proc *proc_list, int len)
 {
 	int	cpid;
 	int	process;
@@ -40,7 +40,7 @@ void	exec_cmds(t_proc *proc_list, int len, char **envp)
 			dup2(proc_list[process].std_out, 1);
 			close_pipes(proc_list, len);
 			if (execve(proc_list[process].cmd_path, proc_list[process].cmd_args,
-					envp) == -1)
+					proc_list[process].envp) == -1)
 				error ("execve");
 		}
 		else
@@ -70,6 +70,5 @@ int	wait_signals(t_proc *proc_list, int len)
 		i++;
 	}
 	close_pipes(proc_list, len);
-	free_proc_lst(proc_list, 2);
 	return (WEXITSTATUS(status));
 }

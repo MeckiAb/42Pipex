@@ -6,7 +6,7 @@
 /*   By: labderra <labderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:17:01 by labderra          #+#    #+#             */
-/*   Updated: 2024/07/13 11:53:33 by labderra         ###   ########.fr       */
+/*   Updated: 2024/07/01 10:38:30 by labderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,23 @@ void	error(char *str)
 	exit(EXIT_FAILURE);
 }
 
-void	free_proc_lst(t_proc *proc_list, int len)
-{
-	while (len--)
-	{
-		free(proc_list[len].cmd_path);
-		free(proc_list[len].cmd_args);		
-	}
-	free(proc_list);
-}
-
 int	main(int argc, char **argv, char **envp)
 {
 	t_proc	*proc_list;
 
-	if (argc != 5)
-		error("Incorrect number of arguments");
-	proc_list = process_init(2, argv, envp);
-	setup_pipes(proc_list, 2, argv[1], argv[4]);
-	exec_cmds(proc_list, 2, envp);
-	return (wait_signals(proc_list, 2));
+	if (!ft_strncmp(argv[1], "here_doc", 8))
+	{
+		if (argc != 6)
+			error("Incorrect usage with heredoc");
+		proc_list = process_init(2, argv + 1, envp);
+		setup_heredoc(proc_list, argv[5]);
+		exec_heredoc_cmds(proc_list, *argv[2]);
+	}
+	else
+	{
+		proc_list = process_init(argc - 3, argv, envp);
+		setup_pipes(proc_list, argc - 3, argv[1], argv[argc - 1]);
+		exec_cmds(proc_list, argc - 3);
+	}
+	return (wait_signals(proc_list, argc - 3));
 }
