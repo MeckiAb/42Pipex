@@ -6,7 +6,7 @@
 #    By: labderra <labderra@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/13 17:36:27 by labderra          #+#    #+#              #
-#    Updated: 2024/07/13 17:39:14 by labderra         ###   ########.fr        #
+#    Updated: 2024/07/16 00:49:10 by labderra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,12 @@ NAME = pipex
 # BONUS = pipex
 LIBFT = libft/libft.a
 FT_PRINTF = ft_printf/libftprintf.a
-SRC = main.c 
+SRC = main.c \
+execs.c
 
 # SRC_BONUS = main_bonus.c 
 
-CC = clang -Wall -Wextra -Werror -gdwarf-4
+CC = clang -Wall -Wextra -Werror -g -gdwarf-4
 OBJ = $(SRC:.c=.o)
 # OBJ_BONUS = $(SRC_BONUS:.c=.o)
 
