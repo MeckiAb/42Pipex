@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: labderra <labderra@student.42malaga.com    +#+  +:+       +#+         #
+#    By: labderra <labderra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/13 17:36:27 by labderra          #+#    #+#              #
-#    Updated: 2024/07/16 00:49:10 by labderra         ###   ########.fr        #
+#    Updated: 2024/07/16 09:47:00 by labderra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,6 @@ re : fclean all
 # bonus: $(BONUS)
 
 # $(BONUS) : $(OBJ_BONUS) $(LIBFT) $(FT_PRINTF)
-	$(CC) $(OBJ_BONUS) $(LIBFT) $(FT_PRINTF) -o $@
+#	$(CC) $(OBJ_BONUS) $(LIBFT) $(FT_PRINTF) -o $@
 
 .PHONY : all clean fclean re #bonus

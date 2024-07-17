@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: labderra <labderra@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: labderra <labderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 17:22:56 by labderra          #+#    #+#             */
-/*   Updated: 2024/07/16 02:35:47 by labderra         ###   ########.fr       */
+/*   Updated: 2024/07/16 11:58:34 by labderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	wait_signals(t_proc *pipe_list, int len)
 	{
 		while (!WIFEXITED(status) && !WIFSIGNALED(status))
 		{
-			if (waitpid(pipe_list[i].pid, &status, 0) == -1)
+			if (waitpid(pipe_list[i].pid, &status, WNOHANG | WUNTRACED) == -1)
 			{
 				perror("waitpid");
 				break ;
@@ -75,7 +75,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argc != 5)
 	{
 		ft_printf("Usage: ./pipex file1 cmd1 cmd2 file2\n");
-		return (0);
+		return (1);
 	}
 	pipe_list = setup_pipes(argv, argc - 3);
 	if (!pipe_list)
