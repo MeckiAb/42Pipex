@@ -1,22 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: labderra <labderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/09 13:00:48 by labderra          #+#    #+#             */
-/*   Updated: 2024/04/09 16:26:34 by labderra         ###   ########.fr       */
+/*   Created: 2024/07/18 13:37:39 by labderra          #+#    #+#             */
+/*   Updated: 2024/07/18 13:37:49 by labderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "pipex.h"
 
-void	ft_bzero(void *s, size_t n)
+int	wait_signals(t_proc *pipe_list, int len)
 {
-	unsigned char	*ptr;
+	int	status;
+	int	i;
 
-	ptr = (unsigned char *)s;
-	while (n-- > 0)
-		ptr[n] = 0;
+	i = 0;
+	status = 0;
+	while (i < len)
+	{
+		while (!WIFEXITED(status) && !WIFSIGNALED(status))
+		{
+			if (waitpid(pipe_list[i].pid, &status, WNOHANG | WUNTRACED) == -1)
+			{
+				perror("waitpid");
+				break ;
+			}
+		}
+		i++;
+	}
+	close_pipes(pipe_list, len);
+	free(pipe_list);
+	return (status);
 }

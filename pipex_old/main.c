@@ -5,25 +5,37 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: labderra <labderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/13 17:22:56 by labderra          #+#    #+#             */
-/*   Updated: 2024/07/18 13:39:15 by labderra         ###   ########.fr       */
+/*   Created: 2024/06/19 17:17:01 by labderra          #+#    #+#             */
+/*   Updated: 2024/07/13 11:53:33 by labderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+void	error(char *str)
+{
+	perror(str);
+	exit(EXIT_FAILURE);
+}
+
+void	free_proc_lst(t_proc *proc_list, int len)
+{
+	while (len--)
+	{
+		free(proc_list[len].cmd_path);
+		free(proc_list[len].cmd_args);		
+	}
+	free(proc_list);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
-	t_proc	*pipe_list;
+	t_proc	*proc_list;
 
 	if (argc != 5)
-	{
-		ft_printf("Usage: ./pipex file1 cmd1 cmd2 file2\n");
-		return (1);
-	}
-	pipe_list = setup_pipes(argv, argc - 3);
-	if (!pipe_list)
-		return (-1);
-	exec_cmds(pipe_list, argc - 3, envp);
-	return (WEXITSTATUS(wait_signals(pipe_list, argc - 3)));
+		error("Incorrect number of arguments");
+	proc_list = process_init(2, argv, envp);
+	setup_pipes(proc_list, 2, argv[1], argv[4]);
+	exec_cmds(proc_list, 2, envp);
+	return (wait_signals(proc_list, 2));
 }

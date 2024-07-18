@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: labderra <labderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/13 17:22:56 by labderra          #+#    #+#             */
-/*   Updated: 2024/07/16 11:58:34 by labderra         ###   ########.fr       */
+/*   Created: 2024/07/18 13:37:04 by labderra          #+#    #+#             */
+/*   Updated: 2024/07/18 13:38:56 by labderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,46 +40,13 @@ t_proc	*setup_pipes(char **arg, int len)
 	return (pipe_list);
 }
 
-int	wait_signals(t_proc *pipe_list, int len)
+void	close_pipes(t_proc *pipe_list, int len)
 {
-	int	status;
-	int	i;
-
-	i = 0;
-	status = 0;
-	while (i < len)
-	{
-		while (!WIFEXITED(status) && !WIFSIGNALED(status))
-		{
-			if (waitpid(pipe_list[i].pid, &status, WNOHANG | WUNTRACED) == -1)
-			{
-				perror("waitpid");
-				break ;
-			}
-		}
-		i++;
-	}
 	while (len--)
 	{
-		close(pipe_list[len].std_in);
-		close(pipe_list[len].std_out);
+		if (pipe_list[len].std_in != -1)
+			close(pipe_list[len].std_in);
+		if (pipe_list[len].std_out != -1)
+			close(pipe_list[len].std_out);
 	}
-	free(pipe_list);
-	return (status);
-}
-
-int	main(int argc, char **argv, char **envp)
-{
-	t_proc	*pipe_list;
-
-	if (argc != 5)
-	{
-		ft_printf("Usage: ./pipex file1 cmd1 cmd2 file2\n");
-		return (1);
-	}
-	pipe_list = setup_pipes(argv, argc - 3);
-	if (!pipe_list)
-		return (-1);
-	exec_cmds(pipe_list, argc - 3, envp);
-	return (WEXITSTATUS(wait_signals(pipe_list, argc - 3)));
 }
