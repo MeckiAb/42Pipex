@@ -6,7 +6,7 @@
 /*   By: labderra <labderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 17:22:56 by labderra          #+#    #+#             */
-/*   Updated: 2024/07/19 10:55:03 by labderra         ###   ########.fr       */
+/*   Updated: 2024/07/22 17:30:36 by labderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ int	main(int argc, char **argv, char **envp)
 	}
 	else if (argc == 6 && !ft_strncmp(argv[1], "here_doc", 8))
 	{
+		argc = 5;
 		run_heredoc(argv[2]);
-		pipe_list = setup_heredoc(&argv[1], 2);
+		pipe_list = setup_heredoc(&argv[1], argc - 3);
 	}
 	else
 		pipe_list = setup_pipes(argv, argc - 3);
@@ -33,7 +34,7 @@ int	main(int argc, char **argv, char **envp)
 		return (-1);
 	exec_cmds(pipe_list, argc - 3, envp);
 	exit_code = WEXITSTATUS(wait_signals(pipe_list, argc - 3));
-	if (argc == 6 && !ft_strncmp(argv[1], "here_doc", 8))
+	if (argc == 5 && !ft_strncmp(argv[1], "here_doc", 8))
 		unlink(".heredoctmp");
 	return (exit_code);
 }

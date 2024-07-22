@@ -6,7 +6,7 @@
 #    By: labderra <labderra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/13 17:36:27 by labderra          #+#    #+#              #
-#    Updated: 2024/07/22 13:14:00 by labderra         ###   ########.fr        #
+#    Updated: 2024/07/22 17:59:03 by labderra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,5 +64,6 @@ bonus: $(BONUS)
 
 $(BONUS) : $(OBJ_BONUS) $(LIBFT) $(FT_PRINTF)
 	$(CC) $(OBJ_BONUS) $(LIBFT) $(FT_PRINTF) -o $@
+	mv $(BONUS) $(NAME)
 
 .PHONY : all clean fclean re bonus

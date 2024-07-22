@@ -6,7 +6,7 @@
 /*   By: labderra <labderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:37:04 by labderra          #+#    #+#             */
-/*   Updated: 2024/07/22 13:10:04 by labderra         ###   ########.fr       */
+/*   Updated: 2024/07/22 18:23:05 by labderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,4 @@ t_proc	*setup_pipes(char **arg, int len)
 	pipe_list[i].cmd = arg[i + 2];
 	pipe_list[i].std_out = open_output(arg[i + 3], O_TRUNC);
 	return (pipe_list);
-}
-
-void	close_pipes(t_proc *pipe_list, int len)
-{
-	while (len--)
-	{
-			close(pipe_list[len].std_in);
-			close(pipe_list[len].std_out);
-	}
 }

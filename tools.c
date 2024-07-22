@@ -6,7 +6,7 @@
 /*   By: labderra <labderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:29:12 by labderra          #+#    #+#             */
-/*   Updated: 2024/07/18 13:40:53 by labderra         ###   ########.fr       */
+/*   Updated: 2024/07/22 18:24:12 by labderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,13 @@ char	*triple_strjoin(char const *s1, char const *s2, char const *s3)
 		p[i++] = *s3++;
 	p[i] = '\0';
 	return (p);
+}
+
+void	close_pipes(t_proc *pipe_list, int len)
+{
+	while (len--)
+	{
+		close(pipe_list[len].std_in);
+		close(pipe_list[len].std_out);
+	}
 }

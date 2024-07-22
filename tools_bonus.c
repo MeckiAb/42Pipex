@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: labderra <labderra@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: labderra <labderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:29:12 by labderra          #+#    #+#             */
-/*   Updated: 2024/07/18 21:21:54 by labderra         ###   ########.fr       */
+/*   Updated: 2024/07/22 18:22:31 by labderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,15 @@ char	*triple_strjoin(char const *s1, char const *s2, char const *s3)
 		p[i++] = *s3++;
 	p[i] = '\0';
 	return (p);
+}
+
+void	close_pipes(t_proc *pipe_list, int len)
+{
+	while (len--)
+	{
+		if (pipe_list[len].std_in != -1)
+			close(pipe_list[len].std_in);
+		if (pipe_list[len].std_out != -1)
+			close(pipe_list[len].std_out);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: labderra <labderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:37:04 by labderra          #+#    #+#             */
-/*   Updated: 2024/07/22 14:06:02 by labderra         ###   ########.fr       */
+/*   Updated: 2024/07/22 18:23:50 by labderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ void	run_heredoc(char *lmt)
 {
 	char	*aux_str;
 	int		tmp_file_fd;
-	
-	tmp_file_fd = open(".heredoctmp", O_CREAT, 0777);
+
+	tmp_file_fd = open(".heredoctmp", O_CREAT | O_WRONLY, 0777);
 	if (tmp_file_fd == -1)
 		return ;
 	ft_printf("heredoc>");
@@ -107,19 +107,8 @@ void	run_heredoc(char *lmt)
 		}
 		write(tmp_file_fd, aux_str, ft_strlen(aux_str));
 		free(aux_str);
-		ft_printf("heredoc>");	
+		ft_printf("heredoc>");
 		aux_str = get_next_line(0);
 	}
 	close(tmp_file_fd);
-}
-
-void	close_pipes(t_proc *pipe_list, int len)
-{
-	while (len--)
-	{
-		if (pipe_list[len].std_in != -1)
-			close(pipe_list[len].std_in);
-		if (pipe_list[len].std_out != -1)
-			close(pipe_list[len].std_out);
-	}
 }
