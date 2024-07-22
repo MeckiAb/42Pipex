@@ -3,15 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: labderra <labderra@student.42malaga.com    +#+  +:+       +#+         #
+#    By: labderra <labderra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/13 17:36:27 by labderra          #+#    #+#              #
-#    Updated: 2024/07/18 21:23:19 by labderra         ###   ########.fr        #
+#    Updated: 2024/07/22 13:14:00 by labderra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
-BONUS = pipex
+BONUS = pipex_bonus
+
 LIBFT = libft/libft.a
 FT_PRINTF = ft_printf/libftprintf.a
 SRC = main.c \

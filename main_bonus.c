@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: labderra <labderra@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: labderra <labderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 17:22:56 by labderra          #+#    #+#             */
-/*   Updated: 2024/07/18 21:30:55 by labderra         ###   ########.fr       */
+/*   Updated: 2024/07/19 10:55:03 by labderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_proc	*pipe_list;
+	int		exit_code;
 
 	if (argc < 5)
 	{
@@ -22,11 +23,17 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	}
 	else if (argc == 6 && !ft_strncmp(argv[1], "here_doc", 8))
-		pipe_list = setup_heredoc(argv, argc - 3);
+	{
+		run_heredoc(argv[2]);
+		pipe_list = setup_heredoc(&argv[1], 2);
+	}
 	else
 		pipe_list = setup_pipes(argv, argc - 3);
 	if (!pipe_list)
 		return (-1);
 	exec_cmds(pipe_list, argc - 3, envp);
-	return (WEXITSTATUS(wait_signals(pipe_list, argc - 3)));
+	exit_code = WEXITSTATUS(wait_signals(pipe_list, argc - 3));
+	if (argc == 6 && !ft_strncmp(argv[1], "here_doc", 8))
+		unlink(".heredoctmp");
+	return (exit_code);
 }

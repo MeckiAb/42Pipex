@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: labderra <labderra@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: labderra <labderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 17:19:00 by labderra          #+#    #+#             */
-/*   Updated: 2024/07/18 21:34:17 by labderra         ###   ########.fr       */
+/*   Updated: 2024/07/19 10:55:29 by labderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_proc
 
 void	exec_cmds(t_proc *pipe_list, int len, char **envp);
 int		wait_signals(t_proc *pipe_list, int len);
+void	run_heredoc(char *lmt);
 t_proc	*setup_heredoc(char **arg, int len);
 t_proc	*setup_pipes(char **arg, int len);
 void	close_pipes(t_proc *pipe_list, int len);
