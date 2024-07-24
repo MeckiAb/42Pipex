@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: labderra <labderra@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: labderra <labderra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 17:22:56 by labderra          #+#    #+#             */
-/*   Updated: 2024/07/18 21:54:39 by labderra         ###   ########.fr       */
+/*   Updated: 2024/07/22 18:41:13 by labderra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,5 @@ int	main(int argc, char **argv, char **envp)
 	if (!pipe_list)
 		return (-1);
 	exec_cmds(pipe_list, argc - 3, envp);
-	return (WEXITSTATUS(wait_signals(pipe_list, argc - 3)));
+	return (wait_signals(pipe_list, argc - 3));
 }
